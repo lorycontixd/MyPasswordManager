@@ -19,11 +19,15 @@ def select_multi_checkbox(field, ul_class='', **kwargs):
     return u''.join(html)
 
 
-@dataclass(init=True, repr=True)
 class UpdateObject:
     service: str
     username: str
     password: str
+
+    def __init__(self, service: str, username: str, password: str):
+        self.service = service
+        self.username = username
+        self.password = password
 
 
 
