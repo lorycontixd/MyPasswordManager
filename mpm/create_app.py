@@ -1,7 +1,9 @@
 import os
 import datetime
 import pytz
+import subprocess
 
+from pprint import pprint
 from flask import Flask
 from flask import (g, redirect)
 from flask import render_template, send_from_directory
@@ -16,6 +18,9 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'mpm.sqlite'),
     )
+
+    x = subprocess.run(["pip","list"], capture_output=True, universal_newlines=True)
+    pprint(f"=====> PIP LIST: {x}")
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
