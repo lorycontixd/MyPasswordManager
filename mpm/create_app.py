@@ -82,7 +82,7 @@ def create_app(test_config=None):
             msg = f"User {user['username']} reached 404 page"
         else:
             msg = f"Unlogged user reached 404 page"
-        LOGGER.warn(msg)
+        LOGGER.warn(msg) 
         return render_template("404.html"), 404
     
     @app.errorhandler(500)
