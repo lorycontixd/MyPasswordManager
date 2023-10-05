@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Edit {{ password['service'] }} password{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <script>
+      function onCheck(){
+        var checked = document.getElementById('checkbox').checked
+        var pwd = document.getElementById('{{form.password.id}}');
+        if (checked){
+          pwd.type = 'text';
+        } else {
+          pwd.type = 'password';
+        }
+      }
+      onCheck()
+    </script>
+
+    {{ form.csrf_token }}
+    {{ form.service.label }} {{ form.service(size=20) }}
+    {{ form.username.label }} {{ form.username(size=20) }}
+    {{ form.password.label}} {{form.password(size=20)}}
+    <div class="update-checkbox">
+      {{ form.checkbox(onchange="onCheck()") }}
+      {{ form.checkbox.label }}
+    </div>
+  </form>
+  <hr>
+  <div class="update-buttons">
+      <form action="{{ url_for('pm.index') }}">
+        <input type="submit" value="Cancel">
+      </form>
+  </div>
+  
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}My Passwords{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('pm.create') }}">New</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% for pw in passwords %}
+    <article class="pw">
+      <header>
+        <div>
+          <h1>{{ pw['service'] }}</h1>
+          {% if pw['created'] == pw['lastupdated'] %}
+            <div class="about">by {{ pw['user'] }} on {{ pw['created'].strftime('%Y-%m-%d %H:%M:%S') }}</div>
+          {% else %}
+            <div class="about">by {{ pw['user'] }} on {{ pw['created'].strftime('%Y-%m-%d %H:%M:%S') }}, updated on {{ pw['lastupdated'].strftime('%Y-%m-%d %H:%M:%S') }}</div>
+          {% endif %}
+
+          
+        </div>
+        {% if g.user['id'] == pw['author_id'] %}
+          <a class="action" href="{{ url_for('pm.view', id=pw['id']) }}">View</a>
+          <a class="action" href="{{ url_for('pm.update', id=pw['id']) }}">Edit</a>
+        {% endif %}
+      </header>
+      <p class="body">{{ pw['body'] }}</p>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

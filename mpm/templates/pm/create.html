@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}New Password{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="service">Service</label>
+    <input name="service" id="service" value="{{ request.form['service'] }}" required>
+    <label for="username">Username</label>
+    <input name="username" id="username" value="{{ request.form['username'] }}" required>
+    <label for="password">Password</label>
+    <input name="password" id="password" type="password" value="{{ request.form['password'] }}" required>
+    <input type="submit" value="Save">
+  </form>
+{% endblock %}

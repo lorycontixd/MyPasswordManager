@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Register{% endblock %}</h1>
+  <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+{% endblock %}
+
+{% block content %}
+  <div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    Make sure your password is <strong>strong</strong><br>
+    A password is considered strong if:<br>
+    <ul>
+      <li>8 characters length or more</li>
+      <li>1 digit or more</li>
+      <li>1 symbol or more</li>
+      <li>1 uppercase letter or more</li>
+      <li>1 lowercase letter or more</li>
+    </ul>
+  </div>
+  <form method="post">
+    <label for="username">Username</label>
+    <input name="username" id="username" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required>
+    <input type="submit" value="Register">
+  </form>
+{% endblock %}
+
+

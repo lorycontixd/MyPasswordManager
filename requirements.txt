@@ -1,0 +1,7 @@
+flask
+SQLAlchemy
+dataclasses
+pytz
+cryptography
+Flask-WTF
+wtforms

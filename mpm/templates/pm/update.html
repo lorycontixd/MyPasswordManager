@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Edit {{ password['service'] }} password{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <script>
+      function onCheck(){
+        var checked = document.getElementById('checkbox').checked
+        var pwd = document.getElementById('{{form.password.id}}');
+        if (checked){
+          pwd.type = 'text';
+        } else {
+          pwd.type = 'password';
+        }
+      }
+      onCheck()
+    </script>
+
+    <!-- <label for="service">Service</label>
+    <input name="service" id="service" value="{{ request.form['service'] or password['service'] }}" readonly>
+    <label for="username">Username</label>
+    <input name="username" id="username" value="{{ request.form['username'] or password['username']}}" required>
+    <label for="password">Password</label>
+    <input name="password" id="password" type="password" value="{{ decrypted_password }}" required>
+    <input type="submit" value="Save"> -->
+    {{ form.csrf_token }}
+    {{ form.service.label }} {{ form.service(size=20) }}
+    {{ form.username.label }} {{ form.username(size=20) }}
+    {{ form.password.label}} {{form.password(size=20)}}
+    <div class="update-checkbox">
+      {{ form.checkbox(onchange="onCheck()") }}
+      {{ form.checkbox.label }}
+    </div>
+    <input type="submit" value="Save" style="width: 160px;">
+  </form>
+  <hr>
+  <div class="update-buttons">
+    <form action="{{ url_for('pm.delete', id=password['id']) }}" method="post">
+        <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+      </form>
+      <form action="{{ url_for('pm.index') }}">
+        <input type="submit" value="Cancel">
+      </form>
+  </div>
+  
+{% endblock %}
