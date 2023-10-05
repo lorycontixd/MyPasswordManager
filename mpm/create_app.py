@@ -8,7 +8,7 @@ from flask import Flask
 from flask import (g, redirect)
 from flask import render_template, send_from_directory
 
-from mpm_config import LOGGER
+from mpm_config import LOGGER, BASE_PATH
 
 
 def create_app(test_config=None):
@@ -18,7 +18,7 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'mpm.sqlite'),
     )
-
+    
     x = subprocess.run(["pip","list"], capture_output=True, universal_newlines=True)
     pprint(f"=====> PIP LIST: {x}")
 
@@ -38,6 +38,10 @@ def create_app(test_config=None):
     ### Blueprints & DB
     # Initialize database
     from . import db
+    #db_exists = os.path.exists(os.path.join(BASE_PATH, "instance"))
+    #if not db_exists:
+    #    x = subprocess.run(["flask", "--app", "app", "init-db"], capture_output=True,universal_newlines=True)
+    #    LOGGER.debug(str(x))
     db.init_app(app)
     LOGGER.debug("Successfully initialised app database")
 

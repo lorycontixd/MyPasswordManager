@@ -3,6 +3,8 @@ import sqlite3
 import click
 from flask import current_app, g
 
+from mpm_config import LOGGER
+
 
 def get_db():
     if 'db' not in g:
@@ -27,6 +29,7 @@ def init_db():
 
     with current_app.open_resource('schema.sql') as f:
         db.executescript(f.read().decode('utf8'))
+        LOGGER.info("Initialized new database")
 
 
 @click.command('init-db')
